@@ -1,5 +1,5 @@
 # mobx-article-prac
-Article and comment display practice app using react+mobx
+Article and comment display practice app created using react+mobx
 
 
 * Type in the input box and hit enter to post an article.
