@@ -4,25 +4,43 @@ import {observer} from "mobx-react"
 @observer
 export default class CommentList extends React.Component {
     createNew (e) {
-        // this.props.store.createArticle(e.target.value);
-        // e.target.value = '';
+        if (e.which === 13) {
+            this.props.store.createComment(e.target.value);
+            e.target.value = '';
+        }
     }
 
     render() {
-        // const toMap = this.props.store.articles;
-        // const ordered = toMap.sort((a, b) => b.upvotes - a.upvotes);
-        // const mapped = ordered.map(article => (
-        //     <li key={article.date} >
-        //         <blockquote>
-        //             <span>{article.upvotes}</span><button onClick={article.upvote.bind(article)}>up</button><span>{article.text}</span>
-        //         </blockquote>
-        //     </li>
-        // ))
-        // return <div>
-        //     <div>article displaaay</div>
-        //     <input onKeyPress={this.createNew.bind(this)} />
-        //     <ul>{mapped}</ul>
-        // </div>
+        const toMap = this.props.store.comments;
+
+        const ordered = toMap.sort((a, b) => b.date - a.date);
+        const mappedComments = ordered.map(comment => (
+            <li key={comment.date} >
+                <span className="commentDate">{formatDate(comment.date)}</span><span>{comment.message}</span>
+            </li>
+        ))
+        return <div>
+            <div>comment display</div>
+            <input onKeyPress={this.createNew.bind(this)} />
+            <ul>{mappedComments}</ul>
+        </div>
 
     }
+}
+function formatDate(date) {
+    const monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+    ];
+    date = new Date(date);
+    let day = date.getDate();
+    let monthIndex = date.getMonth();
+    let year = date.getFullYear();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+
+    return `${day} ${monthNames[monthIndex]} ${year} ${hours}:${minutes}:${seconds}: `;
 }

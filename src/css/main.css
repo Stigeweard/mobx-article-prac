@@ -10,3 +10,12 @@ li {
     list-style: none;
     text-align: justify;
 }
+
+.articleBlock {
+    background-color: darkgrey;
+    margin-top: 10%;
+}
+
+.commentDate {
+    color: grey;
+}
